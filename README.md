@@ -19,9 +19,9 @@ The environment is built using a Type-2 Hypervisor approach (VirtualBox/VMware),
 
 ```mermaid
 graph TD
-    A[Kali Linux<br/>(Attacker)] -->|Malicious Traffic| B[Ubuntu Server<br/>(Victim)]
-    B -->|Forwarded Logs<br/>(Syslog/Auth)| C[Splunk Enterprise<br/>(SIEM)]
-    C -->|Alerts & Dashboards| D[Analyst Workstation]
+    A["Kali Linux<br/>(Attacker)"] -->|Malicious Traffic| B["Ubuntu Server<br/>(Victim)"]
+    B -->|"Forwarded Logs<br/>(Syslog/Auth)"| C["Splunk Enterprise<br/>(SIEM)"]
+    C -->|"Alerts & Dashboards"| D["Analyst Workstation"]
 
 ```
 
