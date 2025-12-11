@@ -39,9 +39,9 @@ graph TD
 
 Each scenario includes a detailed report covering the attack execution, detection logic, and mitigation strategies.
 ID	Scenario Name	MITRE Technique	Tools Used	Status
-Lab-01	Network Reconnaissance Detection	T1046 (Network Service Discovery)	Nmap, Splunk	✅ Done
-Lab-02	SSH Brute Force Analysis	T1110 (Brute Force)	Hydra, Syslog	✅ Done
-Lab-03	User Account Creation Monitoring	T1136 (Create Account)	Useradd, Auth.log	🚧 In Progress
+Lab-01	Network Reconnaissance Detection	T1046 (Network Service Discovery)	Nmap, Splunk	📅 Planned
+Lab-02	SSH Brute Force Analysis	T1110 (Brute Force)	Hydra, Syslog	📅 Planned
+Lab-03	User Account Creation Monitoring	T1136 (Create Account)	Useradd, Auth.log	📅 Planned
 Lab-04	Web Server Fuzzing Detection	T1190 (Exploit Public-Facing App)	Nikto, Apache Logs	📅 Planned
 Lab-20	Full Kill Chain Investigation	APT Simulation	Multiple	📅 Planned
 📁 Repository Structure
