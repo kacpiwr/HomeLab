@@ -1,0 +1,21 @@
+homelab-security-portfolio/
+│
+├── README.md                  <-- Główny opis Twojego profilu (Wstęp z poprzedniej rozmowy)
+│
+├── scenarios/                 <-- Tu trzymasz "mięso"
+│   ├── 01-ssh-bruteforce/     <-- Folder dla naszego ataku Hydrą
+│   │   ├── README.md          <-- TU WKLEJASZ DOKUMENTACJĘ (Raport CS-2025-SSH-BF)
+│   │   ├── evidence/          <-- Dowody
+│   │   │   ├── hydra-terminal.png    <-- Screen z Kali (sukces ataku)
+│   │   │   ├── splunk-timeline.png   <-- Screen wykresu ze Splunka
+│   │   │   └── splunk-alert.png      <-- Screen alertu
+│   │   └── detection-rules/
+│   │       └── sigma-ssh-bruteforce.yml  <-- Plik YAML z regułą Sigma
+│   │
+│   └── 02-vsftpd-backdoor/    <-- (Opcjonalnie) Miejsce na kolejny atak
+│
+└── configs/                   <-- Pokaż, że umiesz skonfigurować system
+    ├── splunk/
+    │   └── inputs.conf        <-- Plik konfiguracyjny (jeśli go użyjesz)
+    └── target-vm/
+        └── setup-notes.txt    <-- Twoje notatki jak postawiłeś maszynę
