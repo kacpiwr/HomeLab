@@ -23,6 +23,8 @@ graph TD
     B -->|Forwarded Logs<br/>(Syslog/Auth)| C[Splunk Enterprise<br/>(SIEM)]
     C -->|Alerts & Dashboards| D[Analyst Workstation]
 
+```mermaid
+
 🛠️ Technical Skills Demonstrated
 
     Security Operations (SOC): Log analysis, Triage, Incident Reporting.
