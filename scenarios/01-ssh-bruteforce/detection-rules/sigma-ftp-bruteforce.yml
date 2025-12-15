@@ -1,0 +1,61 @@
+# Lab Report: [INSERT LAB TITLE, e.g., Network Reconnaissance with Nmap]
+
+    | **Category** | **Date** | **Difficulty** | **Status** |
+    |:---:|:---:|:---:|:---:|
+    | Purple Team | 2025-12-15 | Basic  | ✅ Completed |
+
+    ## 1. Objective
+    The goal of this lab was to simulate brutte force attack to the host  and verify if the SIEM (Splunk) could detect the generated network noise.
+
+    ## 2. MITRE ATT&CK Brute Force Technique 
+    * **Tactic:** Credential Access (TA0006)
+    * **Technique:** Brute Force (T1110)
+    * **Procedure:** Using `Hydra` to brute-force FTP password on a target machine for msfadmin.
+
+    ---
+
+    ## 3. Red Team Operations (Attack Simulation)
+    **Tools used:** Hydra
+    **Target:** Ubuntu Server Metasploitable (192.168.1.113)
+
+    ### Execution
+    The following command was executed to initiate the activity:
+
+    ```bash
+    hydra-l msfadmin -p passlist.txt ftp://192.168.1.113
+    ```
+
+    Observation: Program tried multiple password combinations from the provided list against the FTP service on the target machine for known admin login.
+
+    4. Blue Team Operations (Detection & Analysis)
+
+    Tool: Splunk Enterprise Log Source: var/log/syslog
+    Detection Logic (SPL)
+
+    To detect this activity, I used the following Splunk search query:
+    Fragment kodu
+
+    ```spl
+    index=metasploitable host="192.168.1.113" | where number_of_tries > 250
+    ````
+
+    Analysis Breakdown
+
+        index=metasploitable: Defines the data scope.
+
+        host="192.168.1.113": Filters logs for the target host.
+
+        where number_of_tries > 250: Identifies instances where the number of login attempts exceeds 250, indicating potential brute-force activity.
+
+        Threshold: Set to 250 attempts to minimize false positives while effectively capturing brute-force attempts.
+
+    5. Business Impact & Mitigation
+
+        Risk: Allows attackers to gain unauthorized access to systems, leading to potential data breaches, service disruptions, and financial losses.
+
+        Mitigation: Implement strickter frewall rules, enforce stronger password policies and disable unused services.
+
+    6. Lessons Learned
+
+        Learned how flags work in hydra tool, how to create custom detection rules in Splunk and the importance of monitoring login attempts to identify potential security threats.  
+
