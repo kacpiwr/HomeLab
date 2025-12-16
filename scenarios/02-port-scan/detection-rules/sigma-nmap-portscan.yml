@@ -1,0 +1,63 @@
+# Lab Report: [INSERT LAB TITLE, e.g., Network Reconnaissance with Nmap]
+
+    | **Category** | **Date** | **Difficulty** | **Status** |
+    |:---:|:---:|:---:|:---:|
+    | Purple Team | 2025-12-16 | Basic  | ✅ Completed |
+
+    ## 1. Objective
+    The goal of this lab was to simulate brutte force attack to the host  and verify if the SIEM (Splunk) could detect the generated network noise.
+
+    ## 2. MITRE ATT&CK Port Scan Technique 
+    * **Tactic:**  Reconnaissance (TA0043)
+    * **Technique:** Active Scanning( T1595)
+    * **Procedure:** Using `Nmap` to perform port scan on a target machine to identify open services.
+
+    ---
+
+    ## 3. Red Team Operations (Attack Simulation)
+    **Tools used:** Nmap
+    **Target:** Ubuntu Server Metasploitable (192.168.1.113)
+
+    ### Execution
+    The following command was executed to initiate the activity:
+
+    ```bash
+    sudo nmap -sV 192.168.1.113
+    ```
+
+    Observation: Program tried accessing multiple ports on the target machine to identify open services and their versions.
+
+    4. Blue Team Operations (Detection & Analysis)
+
+    Tool: Splunk Enterprise Log Source: var/log/syslog
+    Detection Logic (SPL)
+
+    To detect this activity, I used the following Splunk search query:
+    Fragment kodu
+
+    ```spl
+    index="metasploitable" host="192.168.1.113" | stats count by attacker_ip |where count > 50
+    ````
+
+    Analysis Breakdown
+
+        index=metasploitable: Defines the data scope.
+
+        host="192.168.1.113": Filters logs for the target host.
+
+        stats count by attacker_ip: Aggregates the number of connection attempts per attacking IP address.
+
+        where count > 50: Filters results to show only those IPs with more than 50 connection attempts in the last 15 minutes, indicating potential port scanning activity.        
+
+        Threshold: Set to 50 attempts to minimize false positives while effectively capturing port scan attempts.
+
+    5. Business Impact & Mitigation
+
+        Risk: Allows for reconnaissance of network services, which can be a precursor to more targeted attacks, potentially leading to unauthorized access and data breaches.               
+
+        Mitigation: Dissable unnecessary services, implement network segmentation, and use intrusion detection/prevention systems to monitor for unusual scanning activity.     
+
+    6. Lessons Learned
+
+        Learned about diffrent flags in nmap tool, and how to group data in splunk using stats command to create effective detection rules. 
+
