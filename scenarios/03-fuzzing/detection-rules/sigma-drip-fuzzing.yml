@@ -1,0 +1,62 @@
+# Lab Report: Web Directory Enumeration
+
+    | **Category** | **Date** | **Difficulty** | **Status** |
+    |:---:|:---:|:---:|:---:|
+    | Purple Team | 2025-12-17 | Basic  | ✅ Completed |
+
+    ## 1. Objective
+    The goal of this lab was to Web Directory Enumeration to the host  and verify if the SIEM (Splunk) could detect the generated network noise.
+
+    ## 2. MITRE ATT&CK 
+    * **Tactic:**  Recponnaissance (TA0043)
+    * **Technique:** Wordlist Scanning (T1595.002)
+    * **Procedure:** Using drip tool to perform web directory enumeration on the target host.
+
+    ---
+
+    ## 3. Red Team Operations (Attack Simulation)
+    **Tools used:** drip
+    **Target:** Ubuntu Server Metasploitable (192.168.1.113)
+
+    ### Execution
+    The following command was executed to initiate the activity:
+
+    ```bash
+    drip http://192.168.1.113
+    ```
+
+    Observation: Program tried accessing multiple ports on the target machine to identify open services and their versions.
+
+    4. Blue Team Operations (Detection & Analysis)
+
+    Tool: Splunk Enterprise Log Source: var/log/syslog
+    Detection Logic (SPL)
+
+    To detect this activity, I used the following Splunk search query:
+    Fragment kodu
+
+    ```spl
+    index="metasploitable" host="192.168.1.113" GET "/phpMyAdmin" | stats count by host | where count >1000
+    ````
+
+    Analysis Breakdown
+
+        index=metasploitable: Defines the data scope.
+
+        host="192.168.1.113": Filters logs for the target host.
+
+        GET "/phpMyAdmin": Focuses on HTTP GET requests to the /phpMyAdmin directory, a common target for enumeration.  
+        
+        stats count by host: Aggregates the number of requests per host.
+
+        where count > 1000: Sets a threshold to identify significant enumeration activity.
+
+        Threshold: Set to 1000 attempts to minimize false positives while effectively capturing port scan attempts.
+
+    5. Business Impact & Mitigation
+
+        Risk: High - Successful web directory enumeration can lead to unauthorized access, data breaches, and exploitation of vulnerabilities.
+        Mitigation: Implement web application firewalls (WAFs), regularly update and patch web applications, and monitor logs for unusual activity.
+
+        Learned about diffrent flags in nmap tool, and how to group data in splunk using stats command to create effective detection rules. 
+

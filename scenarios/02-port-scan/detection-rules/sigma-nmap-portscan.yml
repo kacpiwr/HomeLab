@@ -36,7 +36,7 @@
     Fragment kodu
 
     ```spl
-    index="metasploitable" host="192.168.1.113" | stats count by attacker_ip |where count > 50
+    index="metasploitable" host="192.168.1.113" GET "/phpMyAdmin" | stats count by host | where count >1000
     ````
 
     Analysis Breakdown
